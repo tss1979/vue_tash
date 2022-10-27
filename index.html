@@ -12,16 +12,21 @@
 <body>
   <div id="app">
     <h1>Список задач</h1>
-    <div>Осталось сделать задач: <span class="counter">2</span></div>
+    <transition name="bounce">
+      <img v-show="count() === 0" src="https://pbs.twimg.com/media/BG2zfl6CEAEWL3B.jpg" alt="">
+    </transition>
+    <div v-if="count() === 0">Ты супер! Все задачи выполнены</div>
+    <div v-else-if="count() === 1">Последний рывок - осталась всеог одна задача</div>
+    <div v-else>Осталось сделать задач: <span class="counter">{{ count() }}</span></div>
     <ul class="list">
-      <li :class="task.class" v-for="task in tasks">
-        <input type="checkbox" :checked="task.checked">
+      <li class="item" :class="{done: task.isDone}" v-for="task in tasks">
+        <input type="checkbox" v-model="task.isDone" >
         {{ task.text }}
       </li>
     </ul>
     <div class="form">
-      <input :placeholder="message">
-      <button type="button" :disabled="disabled">Добавить</button>
+      <input :placeholder="message" v-model="message">
+      <button type="button" @click="addTask">Добавить</button>
     </div>
   </div>
 </body>

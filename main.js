@@ -2,25 +2,34 @@ const app = new Vue({
   el: '#app',
   data: {
     message: 'Enter your new task',
-    disabled: true,
     tasks: [
       {
         text:'Развернуть окружение в Codepen',
-        checked: true,
+        isDone: true,
         class: 'item done',
       },
       {
         text:'Пройти курс по Vue',
-        checked: false,
+        isDone: false,
         class: 'item',
       },
       {
         text:'Сделать интернет-магазин на Vue',
-        checked: false,
+        isDone: false,
         class: 'item',
       },
     ]
 
+  },
+  methods: {
+    addTask: function() {
+      this.tasks.push({ text: this.message, isDone: false});
+      this.message = '';
+    },
+    count: function() {
+      return this.tasks.filter(task => !task.isDone).length;
+
+    }
   }
 })
 
