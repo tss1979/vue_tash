@@ -11,7 +11,7 @@
 </head>
 <body>
   <div id="app">
-    <h1>Список задач</h1>
+    <h1>Список задач <like-button></like-button><span style="padding-left:10px"></span><dislike-button/></h1>
     <transition name="bounce">
       <img v-show="count() === 0" src="https://pbs.twimg.com/media/BG2zfl6CEAEWL3B.jpg" alt="">
     </transition>
@@ -22,6 +22,8 @@
       <li class="item" :class="{done: task.isDone}" v-for="task in tasks">
         <input type="checkbox" v-model="task.isDone" >
         {{ task.text }}
+        <like-button></like-button><span style="padding-left:10px"></span>
+        <dislike-button />
       </li>
     </ul>
     <div class="form">

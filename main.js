@@ -1,3 +1,21 @@
+Vue.component('like-button', {
+  data: function() {
+    return {
+      likes: 0,
+    }
+  },
+  template: `<button @click="likes++" type="button">&#9829; {{likes}}</button> `
+})
+
+Vue.component('dislike-button', {
+  data: function() {
+    return {
+      dislikes: 0,
+    }
+  },
+  template: `<button @click="dislikes++" type="button">&#128078; {{ dislikes }}</button>`
+})
+
 const app = new Vue({
   el: '#app',
   data: {
@@ -28,7 +46,6 @@ const app = new Vue({
     },
     count: function() {
       return this.tasks.filter(task => !task.isDone).length;
-
     }
   }
 })
