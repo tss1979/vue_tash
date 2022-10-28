@@ -12,23 +12,24 @@
 <body>
   <div id="app">
     <h1>Список задач <like-button></like-button><span style="padding-left:10px"></span><dislike-button/></h1>
+    <h2 v-show="listTitle">{{ listTitle }} <like-button></like-button><span style="padding-left:10px"></span>
+      <dislike-button />
+    </h2>
     <transition name="bounce">
       <img v-show="count() === 0" src="https://pbs.twimg.com/media/BG2zfl6CEAEWL3B.jpg" alt="">
     </transition>
     <div v-if="count() === 0">Ты супер! Все задачи выполнены</div>
     <div v-else-if="count() === 1">Последний рывок - осталась всеог одна задача</div>
     <div v-else>Осталось сделать задач: <span class="counter">{{ count() }}</span></div>
-    <ul class="list">
-      <li class="item" :class="{done: task.isDone}" v-for="task in tasks">
-        <input type="checkbox" v-model="task.isDone" >
-        {{ task.text }}
-        <like-button></like-button><span style="padding-left:10px"></span>
-        <dislike-button />
-      </li>
-    </ul>
+    <div>
+      <task-list :tasks="getNotDoneTasks()" />
+    </div>
     <div class="form">
       <input :placeholder="message" v-model="message">
       <button type="button" @click="addTask">Добавить</button>
+    </div>
+    <div>
+      <task-list :tasks="getDoneTasks()" />
     </div>
   </div>
 </body>
