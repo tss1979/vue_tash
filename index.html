@@ -11,25 +11,33 @@
 </head>
 <body>
   <div id="app">
-    <h1>Список задач <like-button></like-button><span style="padding-left:10px"></span><dislike-button/></h1>
-    <h2 v-show="listTitle">{{ listTitle }} <like-button></like-button><span style="padding-left:10px"></span>
-      <dislike-button />
-    </h2>
-    <transition name="bounce">
-      <img v-show="count() === 0" src="https://pbs.twimg.com/media/BG2zfl6CEAEWL3B.jpg" alt="">
-    </transition>
-    <div v-if="count() === 0">Ты супер! Все задачи выполнены</div>
-    <div v-else-if="count() === 1">Последний рывок - осталась всеог одна задача</div>
-    <div v-else>Осталось сделать задач: <span class="counter">{{ count() }}</span></div>
     <div>
-      <task-list :tasks="getNotDoneTasks()" />
+      <h1>Список задач </h1>
+      <like-button v-model="headerLikes"></like-button><span style="padding-left:10px"></span>
+      <dislike-button v-model="headerDisLikes"/>
+    </div>
+    <h2 v-show="listTitle">{{ listTitle }} </h2>
+    <h3>Общее количество лайков: {{ totalLikes }}</h3>
+    <h3>Общее количество дизлайков: {{ totalDisLikes }}</h3>
+    <transition name="bounce">
+      <img v-show="count === 0" src="https://pbs.twimg.com/media/BG2zfl6CEAEWL3B.jpg" alt="">
+    </transition>
+    <div v-if="count === 0">Ты супер! Все задачи выполнены</div>
+    <div v-else-if="count === 1">Последний рывок - осталась всеог одна задача</div>
+    <div v-else>Осталось сделать задач: <span class="counter">{{ count }}</span></div>
+    <div>
+      <task-list :tasks="notDoneTasks" />
     </div>
     <div class="form">
+      <div>
+        <like-button v-model="formLikes"></like-button><span style="padding-left:10px"></span>
+        <dislike-button v-model="formDisLikes" />
+      </div>
       <input :placeholder="message" v-model="message">
       <button type="button" @click="addTask">Добавить</button>
     </div>
     <div>
-      <task-list :tasks="getDoneTasks()" />
+      <task-list :tasks="doneTasks" />
     </div>
   </div>
 </body>
